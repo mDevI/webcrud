@@ -30,16 +30,16 @@
                         <i class="fa fa-user"></i> Welcome Yuri
                     </a>
                     <div class="dropdown-menu">
-                        <a href="profile.html" class="dropdown-item">
+                        <a href="#" class="dropdown-item">
                             <i class="fa fa-user-circle"></i> Profile
                         </a>
-                        <a href="settings.html" class="dropdown-item">
+                        <a href="#" class="dropdown-item">
                             <i class="fa fa-gear"></i> Settings
                         </a>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a href="login.html" class="nav-link"><i class="fa fa-user-times"></i> Logout</a>
+                    <a href="#" class="nav-link"><i class="fa fa-user-times"></i> Logout</a>
                 </li>
             </ul>
         </div>
@@ -92,7 +92,6 @@
                         <a th:href="@{/delete/(id=${person.id})}" th:method="post" methods="post"
                            class="btn btn-danger  deleteBtn col-sm-5">Delete</a>
                     </td>
-
                 </tr>
                 </tbody>
             </table>
@@ -112,7 +111,7 @@
 
     <!-- Modal for the NEW or the EDIT button click -->
     <div class="modalEditForm">
-        <form th:action="@{/save}" method="post">
+        <form th:action="@{/save}" action="/save" method="post">
             <div class="modal fade" id="personFormModal" tabindex="-1" role="dialog"
                  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -126,24 +125,24 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="id" class="form-control-label">ID:</label>
-                                <input readonly="readonly" type="text" id="id" class="form-control" name="id" value="">
+                                <input readonly="readonly" type="text" id="id" class="form-control" name="id"/>
                             </div>
                             <div class="form-group">
                                 <label for="firstname" class="form-control-label">First Name:</label>
-                                <input type="text" id="firstname" class="form-control" name="firstName" value="">
+                                <input type="text" id="firstname" class="form-control" name="firstName" value=""/>
                             </div>
                             <div class="form-group">
                                 <label for="lastname" class="form-control-label">Last Name:</label>
-                                <input type="text" id="lastname" class="form-control" name="lastName" value="">
+                                <input type="text" id="lastname" class="form-control" name="lastName" value=""/>
                             </div>
                             <div class="form-group">
                                 <label for="email" class="form-control-label">Email:</label>
-                                <input type="text" id="email" class="form-control" name="email" value="">
+                                <input type="text" id="email" class="form-control" name="email" value=""/>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <input type="submit" class="btn btn-primary" value="Save" name=""/>
+                            <input type="submit" class="btn btn-primary" value="Save"/>
                         </div>
                     </div>
                 </div>
