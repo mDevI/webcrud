@@ -52,9 +52,4 @@ public class PersonController {
         return personRepository.findById(id).orElse(null);
     }
 
-    @GetMapping("/login")
-    public String processTheLogin(Model model) {
-        return "login";
-    }
-
 }
