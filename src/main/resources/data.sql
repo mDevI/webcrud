@@ -4,11 +4,12 @@ delete from users;
 delete from persons;
 
 -- PERSONS -------------------------------------------------------------------------------------------------------------
-insert into persons (id, firstname, lastname, email) values (1,"John", "Doe", "jdoe@gmail.com" );
-insert into persons (id, firstname, lastname, email) values (2,"Jane", "Doe", "janedoe@gmail.com" );
-insert into persons (id, firstname, lastname, email) values (3,"Nick", "Finn", "nick@gmail.com" );
-insert into persons (id, firstname, lastname, email) values (4,"Meggy", "Rolls", "meg@gmail.com" );
-insert into persons (id, firstname, lastname, email) values (5,"Walter", "Frisky", "waltf@gmail.com" );
+insert into persons (id, firstname, lastname, email) values (1, 'John', 'Doe', 'jdoe@gmail.com' );
+insert into persons (id, firstname, lastname, email) values (2, 'Jane', 'Doe', 'janedoe@gmail.com' );
+insert into persons (id, firstname, lastname, email) values (3, 'Nick', 'Finn', 'nick@gmail.com' );
+insert into persons (id, firstname, lastname, email) values (4, 'Meggy', 'Rolls', 'meg@gmail.com' );
+insert into persons (id, firstname, lastname, email) values (5, 'Walter', 'Frisky', 'waltf@gmail.com' );
+
 
 
 
@@ -83,12 +84,12 @@ create table acl_object_identity (
 );
 
 -- Object identity -----------------------------------------------------------------------------------------------------
-insert into acl_object_identity (id, object_id_identity, object_id_class, parent_object, owner_sid, entries_inheriting) values (101, 1, 1, null, 1, false);
-insert into acl_object_identity (id, object_id_identity, object_id_class, parent_object, owner_sid, entries_inheriting) values (102, 2, 1, null, 1, false);
-insert into acl_object_identity (id, object_id_identity, object_id_class, parent_object, owner_sid, entries_inheriting) values (103, 3, 1, null, 1, false);
-insert into acl_object_identity (id, object_id_identity, object_id_class, parent_object, owner_sid, entries_inheriting) values (104, 4, 1, null, 1, false);
-insert into acl_object_identity (id, object_id_identity, object_id_class, parent_object, owner_sid, entries_inheriting) values (105, 5, 1, null, 1, false);
-insert into acl_object_identity (id, object_id_identity, object_id_class, parent_object, owner_sid, entries_inheriting) values (106, 6, 1, null, 1, false);
+insert into acl_object_identity (id, object_id_identity, object_id_class, parent_object, owner_sid, entries_inheriting) values (1, 1, 1, null, 4, false);
+insert into acl_object_identity (id, object_id_identity, object_id_class, parent_object, owner_sid, entries_inheriting) values (2, 2, 1, null, 4, false);
+insert into acl_object_identity (id, object_id_identity, object_id_class, parent_object, owner_sid, entries_inheriting) values (3, 3, 1, null, 4, false);
+insert into acl_object_identity (id, object_id_identity, object_id_class, parent_object, owner_sid, entries_inheriting) values (4, 4, 1, null, 4, false);
+insert into acl_object_identity (id, object_id_identity, object_id_class, parent_object, owner_sid, entries_inheriting) values (5, 5, 1, null, 4, false);
+
 
 
 -- ACE table definition ------------------------------------------------------------------------------------------------
@@ -108,20 +109,9 @@ create table acl_entry (
 
 -- ACE list for Admin --------------------------------------------------------------------------------------------------
 
-insert into acl_entry (acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure) values (1, 1, 1, 1, true, true, true);
-insert into acl_entry (acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure) values (1, 2, 1, 2, true, true, true);
-insert into acl_entry (acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure) values (1, 3, 1, 4, true, true, true);
-insert into acl_entry (acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure) values (1, 4, 1, 8, true, true, true);
-insert into acl_entry (acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure) values (1, 5, 1, 16, true, true, true);
+insert into acl_entry (acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure) values (1, 1, 4, 3, true, true, true);
+insert into acl_entry (acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure) values (2, 1, 4, 3, true, true, true);
+insert into acl_entry (acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure) values (3, 1, 4, 3, true, true, true);
+insert into acl_entry (acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure) values (4, 1, 4, 3, true, true, true);
+insert into acl_entry (acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure) values (5, 1, 4, 3, true, true, true);
 
-insert into acl_entry (acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure) values (2, 1, 1, 1, true, true, true);
-insert into acl_entry (acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure) values (2, 2, 1, 2, true, true, true);
-insert into acl_entry (acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure) values (2, 3, 1, 4, true, true, true);
-insert into acl_entry (acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure) values (2, 4, 1, 8, true, true, true);
-insert into acl_entry (acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure) values (2, 5, 1, 16, true, true, true);
-
-insert into acl_entry (acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure) values (3, 1, 1, 1, true, true, true);
-insert into acl_entry (acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure) values (3, 2, 1, 2, true, true, true);
-insert into acl_entry (acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure) values (3, 3, 1, 4, true, true, true);
-insert into acl_entry (acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure) values (3, 4, 1, 8, true, true, true);
-insert into acl_entry (acl_object_identity, ace_order, sid, mask, granting, audit_success, audit_failure) values (3, 5, 1, 16, true, true, true);

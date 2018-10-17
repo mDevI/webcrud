@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -23,25 +24,35 @@ public class AppWebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.appUserDetailsService = appUserDetailsService;
     }
 
+
+    @Autowired
+    private DefaultWebSecurityExpressionHandler webSecurityExpressionHandler;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    @Autowired
-    public void configureGlobalAuthManager(AuthenticationManagerBuilder auth) throws Exception {
+    @Override
+    public void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .userDetailsService(appUserDetailsService)
                 .passwordEncoder(passwordEncoder());
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(final HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .expressionHandler(webSecurityExpressionHandler);
+
         http
                 .csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/admin/h2/**").permitAll()
                 .antMatchers("/static/**", "/webjars/**", "/resources/**", "/js/**", "/css/**", "/fonts").permitAll()
-                .antMatchers("/").hasAnyRole("ADMIN", "EDITOR", "READER")
+                .antMatchers("/").access("hasAnyRole('ADMIN', 'EDITOR', 'READER') and isFullyAuthenticated()")
+                .antMatchers("/**").hasAnyRole("ADMIN", "EDITOR", "READER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -63,4 +74,5 @@ public class AppWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .frameOptions()
                 .disable();
     }
+
 }

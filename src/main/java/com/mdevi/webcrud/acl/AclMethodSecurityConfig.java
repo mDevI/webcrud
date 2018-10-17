@@ -1,4 +1,4 @@
-package com.mdevi.webcrud.config;
+package com.mdevi.webcrud.acl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +12,7 @@ public class AclMethodSecurityConfig extends GlobalMethodSecurityConfiguration {
 
     @Autowired
     MethodSecurityExpressionHandler defaultMethodSecurityExpressionHandler;
+
 
     @Override
     protected MethodSecurityExpressionHandler createExpressionHandler() {
