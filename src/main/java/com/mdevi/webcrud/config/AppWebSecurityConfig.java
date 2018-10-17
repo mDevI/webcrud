@@ -41,7 +41,7 @@ public class AppWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/static/**", "/webjars/**", "/resources/**", "/js/**", "/css/**", "/fonts").permitAll()
-                .antMatchers("/").hasRole("ADMIN")
+                .antMatchers("/").hasAnyRole("ADMIN", "EDITOR", "READER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -57,5 +57,10 @@ public class AppWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling()
                 .accessDeniedPage("/accessDenied");
+
+        http
+                .headers()
+                .frameOptions()
+                .disable();
     }
 }

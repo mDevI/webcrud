@@ -1,23 +1,19 @@
 package com.mdevi.webcrud;
 
-import com.mdevi.webcrud.model.Person;
-import com.mdevi.webcrud.repository.PersonRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HrDbApplication implements CommandLineRunner {
+public class HrDbApplication {
 
-    @Autowired
-    private PersonRepository personRepository;
+/*    @Autowired
+    private PersonRepository personRepository;*/
 
     public static void main(String[] args) {
         SpringApplication.run(HrDbApplication.class, args);
     }
 
-    @Override
+/*    @Override
     public void run(String... args) throws Exception {
         personRepository.save(new Person("John", "Doe", "jdoe@gmail.com"));
         personRepository.save(new Person("Jane", "Doe", "janedoe@gmail.com"));
@@ -46,5 +42,5 @@ public class HrDbApplication implements CommandLineRunner {
         personRepository.save(new Person("John", "Doe", "jdoe@gmail.com"));
         personRepository.save(new Person("John", "Doe", "jdoe@gmail.com"));
         personRepository.save(new Person("John", "Doe", "jdoe@gmail.com"));
-    }
+    }*/
 }

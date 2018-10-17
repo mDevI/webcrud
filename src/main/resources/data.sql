@@ -1,6 +1,16 @@
 delete from user_role;
 delete from roles;
 delete from users;
+delete from persons;
+
+-- PERSONS -------------------------------------------------------------------------------------------------------------
+insert into persons (id, firstname, lastname, email) values (1,"John", "Doe", "jdoe@gmail.com" );
+insert into persons (id, firstname, lastname, email) values (2,"Jane", "Doe", "janedoe@gmail.com" );
+insert into persons (id, firstname, lastname, email) values (3,"Nick", "Finn", "nick@gmail.com" );
+insert into persons (id, firstname, lastname, email) values (4,"Meggy", "Rolls", "meg@gmail.com" );
+insert into persons (id, firstname, lastname, email) values (5,"Walter", "Frisky", "waltf@gmail.com" );
+
+
 
 -- ROLES ---------------------------------------------------------------------------------------------------------------
 
