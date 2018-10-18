@@ -19,7 +19,7 @@ public class PersonController {
         this.personRepository = personRepository;
     }
 
-    @GetMapping("/")
+    @GetMapping(value = {"/", "/persons"})
     public String showPersons(Model model, @RequestParam(defaultValue = "0") int pageIndex) {
         Page<Person> personPage = personRepository.findAll(PageRequest.of(pageIndex, 10));
         model.addAttribute("data", personPage);
