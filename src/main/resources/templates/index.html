@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns="http://www.w3.org/1999/xhtml"
+      lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <script type="text/javascript" src="webjars/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="webjars/popper.js/1.14.3/popper.min.js"></script>
+    <script type="text/javascript" src="webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script type="text/javascript" th:src="@{js/main.js}" src="../static/js/main.js"></script>
+    <link rel="stylesheet" href="webjars/bootstrap/4.1.3/css/bootstrap.min.css"/>
+    <link rel="stylesheet" th:href="@{css/font-awesome.min.css}" href="../static/css/font-awesome.min.css"/>
+</head>
+<body>
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
+    <div class="container">
+        <a href="/" class="navbar-brand">CRUD WEB UI APP</a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item px-2">
+                    <a href="/books" class="nav-link">Books</a>
+                </li>
+                <li class="nav-item px-2">
+                    <a href="#" class="nav-link active">Persons</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown mr-3">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-user"></i> Welcome <span sec:authentication="principal.username">User</span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">
+                            <i class="fa fa-user-circle"></i> Profile
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fa fa-gear"></i> Settings
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/logout}" href="#" class="nav-link"><i class="fa fa-user-times"></i> Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- SECOND ROW HEADER -->
+<header id="main-header" class="py-2 bg-primary text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1><i class="fa fa-gear"></i> Person operations</h1>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- ACTIONS for example add new person -->
+<section id="action" class="py-4 mb-4 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <a href="#" class="btn btn-warning btn-block newBtn" data-toggle="modal" data-target="#personFormModal">
+                    <i class="fa fa-plus"></i> Add Person
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- TABLE OF PERSONS -->
+<div class="container">
+    <div class="card">
+        <div class="card-block">
+            <table class="table table-hover table-bordered">
+                <thead>
+                <tr class="text-center">
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="person : ${data}">
+                    <td th:text="${person.id}">1</td>
+                    <td th:text="${person.firstName}">John</td>
+                    <td th:text="${person.lastName}">Doe</td>
+                    <td th:text="${person.email}">some@gmail.com</td>
+                    <td>
+                        <a th:href="@{/getPerson/(id=${person.id})}" class="btn btn-success editBtn col-sm-5">Edit</a>
+                        <a th:href="@{/delete/(id=${person.id})}" th:method="post" methods="post"
+                           class="btn btn-danger  deleteBtn col-sm-5">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="section">
+                <ul class="nav nav-pills">
+                    <li class="nav-item" th:each="p : ${#numbers.sequence(0,data.totalPages - 1)}">
+                        <a class="nav-link"
+                           th:classappend="${currentPage} == ${p} ? 'active':''"
+                           th:href="@{/(pageIndex=${p})}"
+                           th:text="${p + 1}">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for the NEW or the EDIT button click -->
+    <div class="modalEditForm">
+        <form th:action="@{/save}" action="/save" method="post">
+            <div class="modal fade" id="personFormModal" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Save or Edit</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="id" class="form-control-label">ID:</label>
+                                <input readonly="readonly" type="text" id="id" class="form-control" name="id"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="firstname" class="form-control-label">First Name:</label>
+                                <input type="text" id="firstname" class="form-control" name="firstName" value=""/>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="form-control-label">Last Name:</label>
+                                <input type="text" id="lastname" class="form-control" name="lastName" value=""/>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="form-control-label">Email:</label>
+                                <input type="text" id="email" class="form-control" name="email" value=""/>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" value="Save"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal for DELETE button dialog  -->
+    <div class="modalDeleteDialog">
+        <div class="modal fade" id="personDeleteModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Delete confirmation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="alert alert-warning">Are you sure you want to delete that person info?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <a href="" class="btn btn-primary" id="delConfirm">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
